@@ -28,8 +28,10 @@ const classCollection = client.db("campsunshine").collection("classes");
 
 async function run() {
   try {
-    // users apis
-    app.post("/addUser", async (req, res) => {
+    // users apis #############################
+
+    // post user to db
+    app.put("/addUser", async (req, res) => {
       const newUser = req.body;
       const result = await userCollection.insertOne(newUser);
       res.send(result);
@@ -42,10 +44,18 @@ async function run() {
       res.send(result);
     });
 
-    // classes apis from here
+    // classes apis from here ###################
+
+    // post classes to db
     app.post("/classes", async (req, res) => {
       const newClass = req.body;
       const result = await classCollection.insertOne(newClass);
+      res.send(result);
+    });
+
+    // get all classes
+    app.get("/classes", async (req, res) => {
+      const result = await classCollection.find({}).toArray();
       res.send(result);
     });
 
