@@ -79,6 +79,14 @@ async function run() {
       res.send(result);
     });
 
+    // get approved classes
+    app.get("/classes/approved", async (req, res) => {
+      const result = await classCollection
+        .find({ status: "approved" })
+        .toArray();
+      res.send(result);
+    });
+
     // update class status
     app.patch("/classes/status/:id", async (req, res) => {
       const id = req.params.id;
