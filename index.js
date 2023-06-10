@@ -35,7 +35,7 @@ async function run() {
       const email = req.params.email;
       const user = req.body;
       console.log(user, email);
-      const query = { email: email };
+      const query = { email: user.email || email };
       console.log(query);
       const options = { upsert: true };
       const updateDoc = {
