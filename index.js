@@ -34,7 +34,9 @@ async function run() {
     app.put("/users/:email", async (req, res) => {
       const email = req.params.email;
       const user = req.body;
+      console.log(user, email);
       const query = { email: email };
+      console.log(query);
       const options = { upsert: true };
       const updateDoc = {
         $set: user,
@@ -61,6 +63,13 @@ async function run() {
       const email = req.params.email;
       const query = { email: email };
       const result = await userCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    // get instructors
+    app.get("/users/status/:role", async (req, res) => {
+      const role = req.params.role;
+      const result = await userCollection.find({ role: role }).toArray();
       res.send(result);
     });
 
@@ -101,7 +110,6 @@ async function run() {
       res.send(update);
     });
 
-    //
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
