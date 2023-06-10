@@ -25,7 +25,7 @@ const client = new MongoClient(uri, {
 // collections
 const userCollection = client.db("campsunshine").collection("users");
 const classCollection = client.db("campsunshine").collection("classes");
-
+const selectCollection = client.db("campsunshine").collection("select");
 async function run() {
   try {
     // users apis #############################
@@ -108,6 +108,23 @@ async function run() {
       };
       const update = await classCollection.updateOne(query, updateDoc);
       res.send(update);
+    });
+
+    // post to select collection after selected
+    app.post("/classes/select", async (req, res) => {
+      const classInfo = req.body;
+      const result = await selectCollection.insertOne(classInfo);
+      res.send(result);
+    });
+
+    // get my selected classes by email
+    app.get("/classes/select/:email", async (req, res) => {
+      const email = req.params.email;
+      console.log(email);
+      const result = await selectCollection
+        .find({ studentEmail: email })
+        .toArray();
+      res.send(result);
     });
 
     // Connect the client to the server	(optional starting in v4.7)
