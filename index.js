@@ -110,6 +110,24 @@ async function run() {
       res.send(update);
     });
 
+    // get my classes : instructor
+    app.get("/classes/:email", async (req, res) => {
+      const email = req.params.email;
+      const result = await classCollection.find({ email: email }).toArray();
+      res.send(result);
+    });
+
+    // update my class
+    app.patch("/classes/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const updateDoc = {
+        $set: req.body,
+      };
+      const update = await classCollection.updateOne(query, updateDoc);
+      res.send(update);
+    });
+
     // post to select collection after selected
     app.post("/classes/select", async (req, res) => {
       const classInfo = req.body;
@@ -122,8 +140,17 @@ async function run() {
       const email = req.params.email;
       console.log(email);
       const result = await selectCollection
-        .find({ studentEmail: email })
+        .find({ userEmail: email })
         .toArray();
+      res.send(result);
+    });
+
+    // delete from selected class
+
+    app.delete("/classes/select/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await selectCollection.deleteOne(query);
       res.send(result);
     });
 
