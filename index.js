@@ -26,6 +26,7 @@ const client = new MongoClient(uri, {
 const userCollection = client.db("campsunshine").collection("users");
 const classCollection = client.db("campsunshine").collection("classes");
 const selectCollection = client.db("campsunshine").collection("select");
+const paymentCollection = client.db("campsunshine").collection("payment");
 async function run() {
   try {
     // generate client secret
@@ -119,6 +120,18 @@ async function run() {
       res.send(result);
     });
 
+    // get popular teacher by enrolled
+    app.get("/classes/popular", async (req, res) => {
+      const result = await classCollection
+        .find({})
+        .sort({
+          enrolled: -1,
+        })
+        .limit(7)
+        .toArray();
+      res.send(result);
+    });
+
     // update class status
     app.patch("/classes/status/:id", async (req, res) => {
       const id = req.params.id;
@@ -176,6 +189,25 @@ async function run() {
       const result = await selectCollection.deleteOne(query);
       res.send(result);
     });
+
+    // process payment
+    app.post("/process-payment", async (req, res) => {
+      const paymentInfo = req.body;
+      const { classId } = paymentInfo;
+      const updateResult = await classCollection.updateOne(
+        { _id: new ObjectId(classId) },
+        {
+          $inc: {
+            enrolled: 1,
+            seats: -1,
+          },
+        }
+      );
+      const result = await paymentCollection.insertOne(paymentInfo);
+      res.send(result);
+    });
+
+    // get
 
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();

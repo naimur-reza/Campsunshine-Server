@@ -1,0 +1,44 @@
+[
+  {
+    "email": "naimur.rezaa@gmail.com",
+    "image": "https://lh3.googleusercontent.com/a/AAcHTte1iGyYKYXZ02Ag8fOty-k5vgW54DBt3h4Bz3GeMTk=s96-c",
+    "name": "Naimur Reza",
+    "role": "admin"
+  },
+  {
+    "email": "rashed@gmail.com",
+    "image": "https://st3.depositphotos.com/16122460/18966/i/450/depositphotos_189668580-stock-photo-young-male-teacher-with-book.jpg",
+    "name": "Abdullah Rashed",
+    "role": "instructor"
+  },
+  {
+    "email": "maruf@gmail.com",
+    "image": "https://thedailyguardian.com/wp-content/uploads/2022/04/Why-Teacher-Performance-Evaluations-Are-Important.jpg",
+    "name": "Maruf Ahmed",
+    "role": "instructor"
+  },
+  {
+    "email": "ikbal49@gmail.com",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSApqGr9rvQwvgixNMwuuXCxPMU8-WvtRyX5Q&usqp=CAU",
+    "name": "Ikbal Rahman",
+    "role": "instructor"
+  },
+  {
+    "email": "mahmuda900@gmail.com",
+    "image": "https://images.unsplash.com/photo-1584043720379-b56cd9199c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG1lbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    "name": "Mahmuda Islam",
+    "role": "instructor"
+  },
+  {
+    "email": "ismailMahmud@gmail.com",
+    "image": "https://images.unsplash.com/photo-1584043720379-b56cd9199c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG1lbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60",
+    "name": "Ismail Mahmud",
+    "role": "instructor"
+  },
+  {
+    "email": "araf1@gmail.com",
+    "image": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWVufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60",
+    "name": "Mohammad Araf",
+    "role": "instructor"
+  }
+]
