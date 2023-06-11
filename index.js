@@ -4,7 +4,7 @@ const app = express();
 const morgan = require("morgan");
 const port = process.env.PORT || 5000;
 const cors = require("cors");
-
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // middleware
 app.use(morgan("dev"));
 app.use(cors());
@@ -28,6 +28,23 @@ const classCollection = client.db("campsunshine").collection("classes");
 const selectCollection = client.db("campsunshine").collection("select");
 async function run() {
   try {
+    // generate client secret
+    app.post("/create-payment-intent", async (req, res) => {
+      const { price } = req.body;
+      if (price) {
+        const amount = parseFloat(price * 100);
+
+        const paymentIntent = await stripe.paymentIntents.create({
+          amount: amount,
+          currency: "usd",
+          payment_method_types: ["card"],
+        });
+        res.send({
+          clientSecret: paymentIntent.client_secret,
+        });
+      }
+    });
+
     // users apis #############################
 
     // post user to db
