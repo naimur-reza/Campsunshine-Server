@@ -116,6 +116,9 @@ async function run() {
     app.get("/classes/approved", async (req, res) => {
       const result = await classCollection
         .find({ status: "approved" })
+        .sort({
+          time: -1,
+        })
         .toArray();
       res.send(result);
     });
@@ -212,11 +215,12 @@ async function run() {
       const email = req.params.email;
       const query = { userEmail: email };
       const result = await paymentCollection.find(query).toArray();
-      res.send(result);
+      const reverse = result.reverse();
+      res.send(reverse);
     });
 
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Database connected!");
