@@ -207,7 +207,13 @@ async function run() {
       res.send(result);
     });
 
-    // get
+    // get payment info
+    app.get("/payment/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { userEmail: email };
+      const result = await paymentCollection.find(query).toArray();
+      res.send(result);
+    });
 
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
