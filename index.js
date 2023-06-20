@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const port = process.env.PORT || 5000;
+const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // middleware
@@ -29,6 +30,15 @@ const selectCollection = client.db("campsunshine").collection("select");
 const paymentCollection = client.db("campsunshine").collection("payment");
 async function run() {
   try {
+    // jwt token verify
+    app.post("/jwt", (req, res) => {
+      const email = req.body;
+      const token = jwt.sign(email, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: "1h",
+      });
+      res.send({ token });
+    });
+
     // generate client secret
     app.post("/create-payment-intent", async (req, res) => {
       const { price } = req.body;
@@ -130,7 +140,7 @@ async function run() {
         .sort({
           enrolled: -1,
         })
-        .limit(7)
+        .limit(6)
         .toArray();
       res.send(result);
     });
